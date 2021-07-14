@@ -67,7 +67,7 @@ def conv2d_layer(
         regularizer=weight_regularizer,
     )
     output = flow.nn.conv2d(
-        input, weight, strides, padding, None, data_format, dilation_rate, name=name
+        input, weight, strides, padding, data_format, dilation_rate, name=name
     )
     if use_bias:
         bias = flow.get_variable(
@@ -132,6 +132,7 @@ def alexnet(images, args, trainable=True):
         bias_regularizer=_get_regularizer(),
         trainable=trainable,
         name="fc1",
+        # model_distribute=flow.distribute.split(0),
     )
 
     dropout1 = flow.nn.dropout(fc1, rate=0.5)
@@ -147,6 +148,7 @@ def alexnet(images, args, trainable=True):
         bias_regularizer=_get_regularizer(),
         trainable=trainable,
         name="fc2",
+        # model_distribute=flow.distribute.split(0)
     )
 
     dropout2 = flow.nn.dropout(fc2, rate=0.5)
@@ -161,6 +163,7 @@ def alexnet(images, args, trainable=True):
         bias_initializer=False,
         trainable=trainable,
         name="fc3",
+        # model_distribute=flow.distribute.split(0)
     )
 
     return fc3

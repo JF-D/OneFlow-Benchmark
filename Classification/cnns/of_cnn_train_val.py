@@ -130,7 +130,7 @@ def main():
     InitNodes(args)
     flow.env.log_dir(args.log_dir)
 
-    snapshot = Snapshot(args.model_save_dir, args.model_load_dir)
+    # snapshot = Snapshot(args.model_save_dir, args.model_load_dir)
 
     print(" {} iter per epoch...".format(epoch_size))
 
@@ -144,15 +144,15 @@ def main():
         for i in range(epoch_size):
             TrainNet().async_get(metric.metric_cb(epoch, i))
 
-        if args.val_data_dir:
-            metric = Metric(
-                desc="validation",
-                calculate_batches=num_val_steps,
-                batch_size=val_batch_size,
-            )
-            for i in range(num_val_steps):
-                InferenceNet().async_get(metric.metric_cb(epoch, i))
-        snapshot.save("epoch_{}".format(epoch))
+        # if args.val_data_dir:
+        #     metric = Metric(
+        #         desc="validation",
+        #         calculate_batches=num_val_steps,
+        #         batch_size=val_batch_size,
+        #     )
+        #     for i in range(num_val_steps):
+        #         InferenceNet().async_get(metric.metric_cb(epoch, i))
+        # snapshot.save("epoch_{}".format(epoch))
 
 
 if __name__ == "__main__":

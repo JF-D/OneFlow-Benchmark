@@ -64,7 +64,6 @@ class ResnetBuilder(object):
             weight,
             strides,
             padding,
-            None,
             self.data_format,
             dilations,
             name=name,
